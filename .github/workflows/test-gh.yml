@@ -1,0 +1,25 @@
+name: "Terraform Apply"
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  CLOUD_CONFIG_URL: https://cloud-config.sa-dev.bb-fnds.com/dev/
+  CONFIG_DIRECTORY: "./"
+
+jobs:
+    curl:
+      runs-on: ubuntu-latest  
+      steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+          clean: false
+      - name: Curl
+        run: bash script.sh $CLOUD_CONFIG_URL
+      
+          
